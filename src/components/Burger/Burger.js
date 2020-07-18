@@ -6,7 +6,7 @@ const burger = (props) => {
   // La variable transformedIngredient résulte de la transformation d'un objet composé de paires clé-valeur
   // en un array JSX de <BurgerIngredient/>. La clé est importante pour savoir de quel
   // ingrédient on a besoin, et la valeur l’est pour l'occurence de chaque ingrédient
-  const transformedIngredients = Object.keys(props.ingredients) // donne l'array ["salad", "bacon", "cheese", "meat"]
+  let transformedIngredients = Object.keys(props.ingredients) // donne l'array ["salad", "bacon", "cheese", "meat"]
     .map((igKey) => {
       // map() s'exécute pour chaque élément l'array
 
@@ -18,7 +18,13 @@ const burger = (props) => {
         // retourne une liste en JSX), et le type d'ingrédient
         return <BurgerIngredient key={igKey + i} type={igKey} />;
       });
-    });
+    })
+    .reduce((arr, el) => {
+      return arr.concat(el);
+    }, []);
+    if (transformedIngredients.length===0) {
+      transformedIngredients = <p>Please add some ingredients!</p>
+    }
 
   return (
     <div className={classes.Burger}>
