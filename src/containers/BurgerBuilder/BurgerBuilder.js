@@ -23,19 +23,46 @@ class BurgerBuilder extends Component {
 
   addIngredientHandler = (type) => {
     const oldCount = this.state.ingredients[type];
-    const newCount = oldCount + 1;
+    const updatedCount = oldCount + 1;
     const updatedIngredients = { ...this.state.ingredients };
-    updatedIngredients[type] = newCount;
+    updatedIngredients[type] = updatedCount;
+
     const oldPrice = this.state.totalPrice;
-    const newPrice = oldPrice + this.INGREDIENTS_PRICE[type];
+    const priceAddition = this.INGREDIENTS_PRICE[type];
+    const newPrice = oldPrice + priceAddition;
+    this.setState({ ingredients: updatedIngredients, newPrice });
+  };
+
+  removeIngredientHandler = (type) => {
+    const oldCount = this.state.ingredients[type];
+    if (oldCount <= 0) {
+      return;
+    }
+    const updatedCount = oldCount - 1;
+    const updatedIngredients = { ...this.state.ingredients };
+    updatedIngredients[type] = updatedCount;
+
+    const oldPrice = this.state.totalPrice;
+    const priceDeduction = this.INGREDIENTS_PRICE[type];
+    const newPrice = oldPrice - priceDeduction;
     this.setState({ ingredients: updatedIngredients, newPrice });
   };
 
   render() {
+    let disableInfo = { ...this.state.ingredients };
+    // {salad: true, bacon:false, etc}
+    for (const key in disableInfo) {
+      disableInfo[key] = disableInfo[key] <= 0; // Vrai ou Faux
+    }
+
     return (
       <Auxiliary>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls ingredientAdded={this.addIngredientHandler} />
+        <BuildControls
+          ingredientAdded={this.addIngredientHandler}
+          ingredientRemoved={this.removeIngredientHandler}
+          disabled={disableInfo}
+        />
       </Auxiliary>
     );
   }
