@@ -1,0 +1,30 @@
+.SideDrawer {
+  position: fixed; /* Même si on scroll, il restera à sa place */
+  width: 280px;
+  max-width: 70%; /* Même sur les petits écrans, il ne devra pas dépasser 70% de largeur du screen */
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 200; /* 200 pour être au-dessus du BackDrop qu'on utilisera plus tard */
+  background-color: white;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  transition: transform 0.3 ease-out;
+}
+
+@media (min-width: 500px) {
+  /* Si l'écran est supérieur à 500px de large, on affiche pas le SideDrawer */
+  .SideDrawer {
+    display: none;
+  }
+}
+
+.Open {
+  transform: translateX(
+    0
+  ); /* Sera a la position de départ qui est celle définie par défaut dans .SideDrawer */
+}
+
+.Close {
+  transform: translateX(-100%); /* Sera complètement à gauche */
+}
