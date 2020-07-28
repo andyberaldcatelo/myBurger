@@ -3,6 +3,14 @@
   padding: 0;
   height: 100%;
   display: flex;
+  flex-flow: column; /* On veut les items les uns en dessous autres */
+
   align-items: center;
   list-style: none;
+}
+
+@media (min-width: 500px) {
+  .NavigationItems {
+    flex-flow: row; /* On veut les items les uns a coté des autres */
+  }
 }
