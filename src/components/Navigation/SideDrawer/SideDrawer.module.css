@@ -28,3 +28,7 @@
 .Close {
   transform: translateX(-100%); /* Sera complètement à gauche */
 }
+
+.Logo {
+  height: 11%;
+}
