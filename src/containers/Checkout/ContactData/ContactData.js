@@ -122,7 +122,7 @@ class ContactData extends Component {
    * @param {*} value
    */
   checkValidity(rules, value) {
-    let isValid = false;
+    let isValid = true;
     if (rules.required) {
       isValid = value.trim() !== '';
     }
@@ -132,7 +132,7 @@ class ContactData extends Component {
     }
 
     if (rules.minLength) {
-      isValid = value.length >= 5;
+      isValid = value.length  >= 5;
     }
     return isValid;
   }
