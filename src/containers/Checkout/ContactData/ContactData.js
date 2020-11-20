@@ -15,6 +15,10 @@ class ContactData extends Component {
           placeholder: 'Your Name',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       street: {
         elementType: 'input',
@@ -23,6 +27,24 @@ class ContactData extends Component {
           placeholder: 'Street',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
+      },
+      zipcode: {
+        elementType: 'input',
+        elementConfig: {
+          type: 'text',
+          placeholder: 'ZipCode',
+        },
+        value: '',
+        validation: {
+          required: true,
+          minLength: 5,
+          maxLength: 5,
+        },
+        valid: false,
       },
       country: {
         elementType: 'input',
@@ -31,7 +53,12 @@ class ContactData extends Component {
           placeholder: 'Country',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
+
       email: {
         elementType: 'input',
         elementConfig: {
@@ -39,6 +66,10 @@ class ContactData extends Component {
           placeholder: 'E-mail',
         },
         value: '',
+        validation: {
+          required: true,
+        },
+        valid: false,
       },
       deliveryMethod: {
         elementType: 'select',
@@ -85,10 +116,41 @@ class ContactData extends Component {
       .catch((error) => this.setState({ loading: false }));
   };
 
+  /**
+   * Check si la valeur entrée dans l'input est non vide, et à la bonne longueur de string <=> donc valide.
+   * @param {*} rules
+   * @param {*} value
+   */
+  checkValidity(rules, value) {
+    let isValid = false;
+    if (rules.required) {
+      isValid = value.trim() !== '';
+    }
+
+    if (rules.maxLength) {
+      isValid = value.length <= 5;
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= 5;
+    }
+    return isValid;
+  }
+
+  /**
+   * Met à jour le state à chaque changement d'état de l'input et check la validité des données entrées
+   * @param {*} event
+   * @param {*} inputIdentifier
+   */
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedOrderForm = { ...this.state.orderForm };
     const updatedFormElement = { ...updatedOrderForm[inputIdentifier] };
     updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = this.checkValidity(
+      updatedFormElement.validation,
+      updatedFormElement.value
+    );
+    console.log(updatedFormElement);
     updatedOrderForm[inputIdentifier] = updatedFormElement;
     this.setState({ orderForm: updatedOrderForm });
   };
