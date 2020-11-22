@@ -132,7 +132,7 @@ class ContactData extends Component {
     }
 
     if (rules.minLength) {
-      isValid = value.length  >= 5;
+      isValid = value.length >= 5;
     }
     return isValid;
   }
@@ -150,7 +150,6 @@ class ContactData extends Component {
       updatedFormElement.validation,
       updatedFormElement.value
     );
-    console.log(updatedFormElement);
     updatedOrderForm[inputIdentifier] = updatedFormElement;
     this.setState({ orderForm: updatedOrderForm });
   };
@@ -172,6 +171,8 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            invalid={!formElement.config.valid}
+            shouldValidate={formElement.config.validation}
             changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
