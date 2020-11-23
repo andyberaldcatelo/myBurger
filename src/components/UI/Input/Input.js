@@ -4,9 +4,15 @@ import classes from './Input.module.css';
 const input = (props) => {
   let inputType = null;
   const cssClasses = [classes.InputElement];
+  let errorMsg = null;
 
-  if (props.invalid && props.shouldValidate) {
+  if (props.invalid && props.shouldValidate && props.touched) {
     cssClasses.push(classes.Invalid);
+    errorMsg = (
+      <label className={classes.InvalidInput}>
+        Please, enter a valid input.
+      </label>
+    );
   }
 
   switch (props.elementType) {
@@ -61,6 +67,7 @@ const input = (props) => {
     <div className={classes.Input}>
       <label className={classes.Label}>{props.label}</label>
       {inputType}
+      {errorMsg}
     </div>
   );
 };

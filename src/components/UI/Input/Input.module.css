@@ -26,6 +26,12 @@
   border: 1px solid red;
 }
 
+.InvalidInput {
+  color: red;
+  margin: 1px;
+  font-size: smaller;
+}
+
 .InputElement:focus {
   background-color: #ccc;
   outline: none;
